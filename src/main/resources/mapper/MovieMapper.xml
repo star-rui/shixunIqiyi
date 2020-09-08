@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iqiyi.dao.MovieMapper">
+    <resultMap id="movieMap" type="com.iqiyi.domain.Movie">
+        <id property="id" column="id"/>
+        <result property="movieName" column="movieName"/>
+        <result property="director" column="director" />
+        <result property="timeLength" column="timeLength" />
+        <result property="showDate" column="showDate" />
+        <result property="description" column="description" />
+        <result property="photo" column="photo" />
+        <!--一个电影对应多个演员-->
+        <collection property="actors" ofType="com.iqiyi.domain.Actor">
+            <id property="id" column="aid"/>
+            <result property="actorName" column="aName"/>
+            <result property="birthday" column="abirthday"/>
+            <result property="sex" column="asex"/>
+            <result property="description" column="adescription"/>
+            <result property="photo" column="aphoto"/>
+        </collection>
+    </resultMap>
+    <!--查询所有电影信息-->
+    <select id="findAllMovie" resultMap="movieMap">
+        SELECT m.*,a.id aid,a.name aname,a.birthday abirthday,a.sex asex,a.description adescription,a.photo aphoto,c.id cid,c.movieTypeName typename
+        from movie m
+        INNER JOIN movie_actor ma ON m.id = ma.movieId
+        INNER JOIN actor a ON ma.actorId = a.id
+        INNER JOIN movie_type mc ON m.id = mc.movieId
+        INNER JOIN movietype c ON mc.movieTypeId = c.id
+    </select>
+</mapper>

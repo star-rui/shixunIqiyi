@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iqiyi.dao.ActorMapper">
+
+    <resultMap id="actorMap" type="com.iqiyi.domain.Actor">
+        <id property="id" column="id"/>
+        <result property="actorName" column="actorName"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+        <result property="description" column="description"/>
+        <result property="photo" column="photo"/>
+        <!--一个演员对应多个区域-->
+        <collection property="regions" ofType="com.iqiyi.domain.Region">
+            <id property="id" column="rid"/>
+            <result property="name" column="rname"/>
+        </collection>
+    </resultMap>
+    <!--查询所有演员信息-->
+    <select id="findAllActor" resultMap="actorMap">
+        select actor.*, r.id rid, r.regionName rname
+        from actor
+        INNER JOIN actor_region on actor.id = actor_region.actorId
+        INNER JOIN region r ON actor_region.regionId = r.id
+    </select>
+
+    <!--根据id查询演员-->
+    <select id="findActorById" parameterType="Integer" resultType="Actor">
+        SELECT * from actor where id=#{id}
+    </select>
+    <!--根据名字查询演员-->
+    <insert id="addActor" parameterType="Actor">
+        insert into actor(actorName, birthday, sex, description, photo)
+        values(#(actorName),#(birthday),#(sex),#(description),#(photo))
+    </insert>
+    <select id="findActorByName" parameterType="String" resultType="Actor">
+        SELECT * FROM  actor where actorName=#{name}
+    </select>
+    <!--新增演员-->
+    <update id="updateActor" parameterType="Actor">
+        UPDATE actor
+        set actorName=#{actorName},birthday=#{birthday},sex=#{sex},description=#{description},photo=#{photo}
+        where id=#{id}
+    </update>
+    <insert	id="addActor" parameterType="Actor">
+        insert into actor(actorName, birthday, sex, description, photo)
+        values(#{actorName},#{birthday},#{sex},#{description},#{photo})
+    </insert>
+    <!--修改演员-->
+    <update id="updateActor" parameterType="Actor">
+        update actor
+        set actorName=#{actorName},birthday=#{birthday},sex=#{sex},description=#{description},photo=#{photo}
+        where id=#{id}
+    </update>
+    <!--删除演员-->
+    <delete id="deleteActor"
+</mapper>
