@@ -18,7 +18,6 @@ public class LoadController {
     @PostMapping("/upload")
     public String upload(MultipartFile pic){
         //在服务器上创建一个新的文件
-
         //把Pic文件中数据写到新的文件中
     }
 }
