@@ -21,8 +21,8 @@
     <select id="findAllActor" resultMap="actorMap">
         select actor.*, r.id rid, r.regionName rname
         from actor
-        INNER JOIN actor_region on actor.id = actor_region.actorId
-        INNER JOIN region r ON actor_region.regionId = r.id
+        LEFT JOIN actor_region on actor.id = actor_region.actorId
+        LEFT JOIN region r ON actor_region.regionId = r.id
     </select>
 
     <!--根据id查询演员-->
@@ -54,5 +54,9 @@
         where id=#{id}
     </update>
     <!--删除演员-->
-    <delete id="deleteActor"
+    <delete id="deleteActor" parameterType="Integer">
+        DELETE
+        from actor
+        where id=#{id}
+    </delete>
 </mapper>

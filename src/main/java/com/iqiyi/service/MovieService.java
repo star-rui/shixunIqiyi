@@ -23,4 +23,6 @@ public interface MovieService {
      void addMovie(Movie movie);
 
      void deleteMovieById(int id);
+
+     void updateMovie(Movie movie);
 }

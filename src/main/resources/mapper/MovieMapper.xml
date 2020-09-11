@@ -11,6 +11,11 @@
         <result property="showDate" column="showDate" />
         <result property="description" column="description" />
         <result property="photo" column="photo" />
+        <!--一个电影对应多个类型-->
+        <collection property="typeList" ofType="com.iqiyi.domain.Movietype">
+            <id property="id" column="tid"/>
+            <result property="movietypeName" column="tname"/>
+        </collection>
         <!--一个电影对应多个演员-->
         <collection property="actors" ofType="com.iqiyi.domain.Actor">
             <id property="id" column="aid"/>
@@ -25,9 +30,63 @@
     <select id="findAllMovie" resultMap="movieMap">
         SELECT m.*,a.id aid,a.name aname,a.birthday abirthday,a.sex asex,a.description adescription,a.photo aphoto,c.id cid,c.movieTypeName typename
         from movie m
-        INNER JOIN movie_actor ma ON m.id = ma.movieId
-        INNER JOIN actor a ON ma.actorId = a.id
-        INNER JOIN movie_type mc ON m.id = mc.movieId
-        INNER JOIN movietype c ON mc.movieTypeId = c.id
+        LEFT JOIN movie_actor ma ON m.id = ma.movieId
+        LEFT JOIN actor a ON ma.actorId = a.id
+        LEFT JOIN movie_type mc ON m.id = mc.movieId
+        LEFT JOIN movietype c ON mc.movieTypeId = c.id
     </select>
+    <!--通过id查询电影-->
+    <select id="findMovieById" resultMap="movieMap">
+        SELECT m.*,a.id aid,a.name aname,a.birthday abirthday,a.sex asex,a.description adescription,a.photo aphoto,c.id cid,c.movieTypeName typename
+        from movie m
+        LEFT JOIN movie_actor ma ON m.id = ma.movieId
+        LEFT JOIN actor a ON ma.actorId = a.id
+        LEFT JOIN movie_type mc ON m.id = mc.movieId
+        LEFT JOIN movietype c ON mc.movieTypeId = c.id
+        where m.id=#{id}
+    </select>
+    <!--通过电影名字查询-->
+    <select id="findMovieByName" resultMap="movieMap">
+        SELECT m.*,a.id aid,a.name aname,a.birthday abirthday,a.sex asex,a.description adescription,a.photo aphoto,c.id cid,c.movieTypeName typename
+        from movie m
+        LEFT JOIN movie_actor ma ON m.id = ma.movieId
+        LEFT JOIN actor a ON ma.actorId = a.id
+        LEFT JOIN movie_type mc ON m.id = mc.movieId
+        LEFT JOIN movietype c ON mc.movieTypeId = c.id
+        where m.movieName=#{name}
+    </select>
+    <!--添加-->
+    <insert id="addMovie" parameterType="Movie">
+        insert into movie(movieName, showDate, timeLength, director, description, photo,)
+        VALUES (#{movieName},#{showDate},#{timeLength},#{director},#{description},#{photo})
+        <selectKey resultType="Integer" order="AFTER" keyProperty="movie.id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <!--向电影类型中间表插入新数据-->
+    <insert id="insertMovieAndType" parameterType="MovieAndType">
+        insert into movie_type(movieId, movieTypeId)
+        VALUES (#{movieId},#{movieTypeId})
+    </insert>
+    <!--删除电影-->
+    <delete id="deleteMovieById" parameterType="Integer">
+        DELETE from movie
+        where id=#{id}
+    </delete>
+    <!--删除电影和类型中间表的数据-->
+    <delete id="deleteMovieAndTypes" parameterType="Integer">
+        DELETE FROM movie_type
+        WHERE movieId=#{id}
+    </delete>
+    <!--删除电影和演员中间表的数据-->
+    <delete id="deleteMovieAndActor" parameterType="Integer">
+        DELETE FROM movie_actor
+        WHERE movieId=#{id}
+    </delete>
+    <!--修改电影-->
+    <update id="updateMovie" parameterType="Movie">
+        update movie
+        set movieName=#{movieName},showDate=#{showDate},timeLength=#{timeLength},director=#{director},description=#{description},photo=#{photo},rating=#{rating}
+        where id=#{id}
+    </update>
 </mapper>

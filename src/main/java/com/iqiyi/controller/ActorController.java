@@ -36,7 +36,7 @@ public class ActorController {
      */
     @GetMapping("/findByActorName/{name}")
     public Actor findByActorName(@PathVariable String name){
-        return actorService.findByActorName(name);
+        return actorService.findActorByName(name);
     }
 
     /**
@@ -56,7 +56,7 @@ public class ActorController {
      */
     @GetMapping("/findActorById/{id}")
     public Actor findActorById(int id){
-        return actorService.findByActorId(id);
+        return actorService.findActorById(id);
     }
 
 

@@ -16,14 +16,31 @@ import java.util.List;
 @Component("actorMapper")
 public interface ActorMapper {
 
+    /**
+     * 查询演员列表
+     * @return
+     */
     List<Actor> findAllActor();
 
+    /**
+     * 增加演员
+     * @param actor
+     */
     void addActor(Actor actor);
 
+    /**
+     * 根据id进行查询
+     * @param id
+     * @return
+     */
     Actor findActorById(int id);
 
     Actor findActorByName(String name);
 
+    /**
+     * 更改演员信息
+     * @param actor
+     */
     void updateActor(Actor actor);
 
     void deleteActor(int id);

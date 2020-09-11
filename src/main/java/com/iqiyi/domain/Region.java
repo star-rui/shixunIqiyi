@@ -17,7 +17,7 @@ import lombok.ToString;
 @Data
 public class Region {
     private int id;
-    private int regionName;
+    private int regionName;//区域的名字
 
     @Override
     public String toString() {
