@@ -1,13 +1,8 @@
 package com.iqiyi.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 /**
  * TODO
- *
+ *推荐表
  * @auothor asus
  * @date 2020/9/6 16:51
  */
@@ -15,12 +10,12 @@ import lombok.ToString;
 public class Recommend {
     private int id;
     private String way;//推荐方式
-    private boolean isRecommend;//是否被推荐，被推荐为true
+    private int isRecommend;//是否被推荐，被推荐为1,未被推荐为0
 
     public Recommend() {
     }
 
-    public Recommend(int id, String way, boolean isRecommend) {
+    public Recommend(int id, String way, int isRecommend) {
         this.id = id;
         this.way = way;
         this.isRecommend = isRecommend;
@@ -42,11 +37,11 @@ public class Recommend {
         this.way = way;
     }
 
-    public boolean isRecommend() {
+    public int isRecommend() {
         return isRecommend;
     }
 
-    public void setRecommend(boolean recommend) {
+    public void setRecommend(int recommend) {
         isRecommend = recommend;
     }
 

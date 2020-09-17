@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * TODO
- *
+ *电影类型的服务类
  * @auothor asus
  * @date 2020/9/10 18:44
  */

@@ -27,6 +27,8 @@ public class Movie {
     private String photo;
     private float rating;
 
+    //一个电影对应的多个演员id
+    private String actorsId;
     //电影和演员一对多
     private List<Actor> actors;
     //电影和类型一对多
@@ -111,6 +113,14 @@ public class Movie {
 
     public String getMovietypes() {
         return movietypes;
+    }
+
+    public String getActorsId() {
+        return actorsId;
+    }
+
+    public void setActorsId(String actorId) {
+        this.actorsId = actorId;
     }
 
     public List<Movietype> getMovietypeList() {

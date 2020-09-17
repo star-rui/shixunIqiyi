@@ -25,4 +25,6 @@ public interface MovieService {
      void deleteMovieById(int id);
 
      void updateMovie(Movie movie);
+
+     List<Movie> recommendMovieList(int id);
 }

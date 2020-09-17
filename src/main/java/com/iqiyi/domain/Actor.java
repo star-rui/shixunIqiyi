@@ -22,17 +22,22 @@ public class Actor {
     private String sex;
     private String description;
     private String photo;
+    //区域id，使用逗号连接的
+    private String regionStr;
+    //区域，因为演员和区域之间存在一对多的关系
+    private List<Region> regions;
 
     public Actor() {
     }
 
-    public Actor(int id, String actorName, Date birthday, String sex, String description, String photo, List<Region> regions) {
+    public Actor(int id, String actorName, Date birthday, String sex, String description, String photo, String regionStr, List<Region> regions) {
         this.id = id;
         this.actorName = actorName;
         this.birthday = birthday;
         this.sex = sex;
         this.description = description;
         this.photo = photo;
+        this.regionStr = regionStr;
         this.regions = regions;
     }
 
@@ -92,8 +97,14 @@ public class Actor {
         this.regions = regions;
     }
 
-    //演员和区域多对多
-    private List<Region> regions;
+    public String getRegionStr() {
+        return regionStr;
+    }
+
+    public void setRegionStr(String regionStr) {
+        this.regionStr = regionStr;
+    }
+
     @Override
     public String toString() {
         return "Actor{" +
@@ -103,6 +114,8 @@ public class Actor {
                 ", sex='" + sex + '\'' +
                 ", description='" + description + '\'' +
                 ", photo='" + photo + '\'' +
+                ", regionStr='" + regionStr + '\'' +
+                ", regions=" + regions +
                 '}';
     }
 }

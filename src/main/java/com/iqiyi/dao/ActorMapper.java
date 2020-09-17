@@ -1,6 +1,7 @@
 package com.iqiyi.dao;
 
 import com.iqiyi.domain.Actor;
+import com.iqiyi.domain.ActorAndRegion;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 /**
  * TODO
- *
+ *对演员的数据操作
  * @auothor asus
  * @date 2020/9/7 14:45
  */
@@ -43,5 +44,22 @@ public interface ActorMapper {
      */
     void updateActor(Actor actor);
 
+    /**
+     * 删除演员
+     * @param id
+     */
     void deleteActor(int id);
+
+    /**
+     * 保存演员与区域关联记录
+     * 向actor_region中间表插入数据
+     * @param actorAndRegion
+     */
+    void saveActorAndRegion(ActorAndRegion actorAndRegion);
+
+    /**
+     * 删除actor_region中间表中的数据
+     * @param id 演员id
+     */
+    void deleteActorAndRegion(int id);
 }

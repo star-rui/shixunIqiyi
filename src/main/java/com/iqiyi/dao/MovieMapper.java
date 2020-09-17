@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * TODO
- *
+ *对电影的数据操作
  * @auothor asus
  * @date 2020/9/7 14:47
  */
@@ -23,6 +23,10 @@ public interface MovieMapper {
 
     Movie findMovieByName(String name);
 
+    /**
+     * 插入新的电影
+     * @param movie
+     */
     void addMovie(Movie movie);
 
     /**
@@ -31,8 +35,16 @@ public interface MovieMapper {
      */
     void deleteMovieById(int id);
 
+    /**
+     * 更新当前电影的数据
+     * @param movie
+     */
     void updateMovie(Movie movie);
 
+    /**
+     * 向movie_type的中间表插入数据
+     * @param mat
+     */
     void insertMovieAndType(MovieAndType mat);
 
     /**
@@ -46,4 +58,20 @@ public interface MovieMapper {
      * @param id 电影的Id,movieId
      */
     void deleteMovieAndActor(int id);
+
+    /**
+     * 用于电影的推荐，选择的推荐方式为按类型推荐
+     * 根据当前电影的类型查询出与该电影类型相同的前三条电影
+     * @param id 电影的id
+     * @return
+     */
+    List<Movie>findTop3ByTypes(int id);
+
+    /**
+     * 用于电影的推荐，选择的推荐方式为按照演员推荐
+     * 根据当前电影的演员查询出与该电影演员相同的前三条电影
+     * @param id 电影的id
+     * @return
+     */
+    List<Movie>findTop3ByActors(int id);
 }
